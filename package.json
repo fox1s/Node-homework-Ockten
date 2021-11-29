@@ -1,0 +1,11 @@
+{
+  "name": "Node_lecture_1",
+  "version": "1.0.0",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-handlebars": "^6.0.2"
+  },
+  "devDependencies": {
+    "@types/express-handlebars": "^6.0.2"
+  }
+}
