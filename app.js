@@ -35,27 +35,27 @@ app.set('views', path.join(__dirname, 'views')) // вказує на те де �
 // })
 
 
-app.post('/login', async (req, res) => {
-    let {login, pass} = req.body;
-    let parsedUsers = await getUser();
+// app.post('/login', async (req, res) => {
+//     let {login, pass} = req.body;
+//     let parsedUsers = await getUser();
+//
+//     let isAuthorized = parsedUsers.some(value => value.login === login && value.pass === pass);
+//     if (isAuthorized) {
+//         return res.redirect('/users')
+//     }
+//     res.render('error', {message: 'User not found'});
+//
+//
+// })
 
-    let isAuthorized = parsedUsers.some(value => value.login === login && value.pass === pass);
-    if (isAuthorized) {
-        return res.redirect('/users')
-    }
-    res.render('error', {message: 'User not found'});
-
-
-})
-
-app.post('/register', async (req, res) => {
-    let result = await createUser(req.body);
-
-    if (!result.status) {
-        return res.render('error', {message: result.describe});
-    }
-    res.redirect('/login');
-})
+// app.post('/register', async (req, res) => {
+//     let result = await createUser(req.body);
+//
+//     if (!result.status) {
+//         return res.render('error', {message: result.describe});
+//     }
+//     res.redirect('/login');
+// })
 
 app.use('/users', userRouter);
 
