@@ -1,0 +1,1 @@
+module.exports.checkIsUserValid = require('./user/check-is-user-valid.middleware')
