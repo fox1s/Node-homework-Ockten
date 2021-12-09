@@ -2,8 +2,9 @@ const express = require('express');
 const exprsBars = require('express-handlebars');
 const path = require("path");
 // const fs = require("fs");
-const fs = require("fs").promises;
-const {getUser, createUser} = require("./services/user.service");
+// const fs = require("fs").promises;
+// const {getUser, createUser} = require("./services/user.service");
+const {userRouter} = require("./routes");
 
 const app = express();
 
@@ -18,20 +19,20 @@ app.engine('.hbs', exprsBars.engine({         // встановлює темпл
 app.set('view engine', '.hbs');  // двіжок для відмальовки html
 app.set('views', path.join(__dirname, 'views')) // вказує на те де лежать hbs файли
 
-app.get('/', (req, res) => {
-    res.redirect('/login');
-});
-
-app.get('/login', (req, res) => {
-    res.render('login');
-});
-
-app.get('/register', (req, res) => {
-    res.render('register');
-});
-app.get('/users', async (req, res) => {
-    res.render('userList', {users: await getUser()});
-})
+// app.get('/', (req, res) => {
+//     res.redirect('/login');
+// });
+//
+// app.get('/login', (req, res) => {
+//     res.render('login');
+// });
+//
+// app.get('/register', (req, res) => {
+//     res.render('register');
+// });
+// app.get('/users', async (req, res) => {
+//     res.render('userList', {users: await getUser()});
+// })
 
 
 app.post('/login', async (req, res) => {
@@ -55,6 +56,8 @@ app.post('/register', async (req, res) => {
     }
     res.redirect('/login');
 })
+
+app.use('/users', userRouter);
 
 app.listen(5000, (err) => {
     if (err) {

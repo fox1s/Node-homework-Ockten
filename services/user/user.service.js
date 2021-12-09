@@ -16,10 +16,12 @@ class UserService {
         let users = [];
         const usersJson = await fs.readFile(DBPath).then(value => value.toString()).catch(err => console.log(err));
         const usersArrJson = usersJson.split('\n');
+        console.log(usersArrJson)
         usersArrJson.forEach(userJson => {
             if (!userJson) {
                 return
             }
+            console.log(userJson, JSON.parse(userJson))
             users.push(JSON.parse(userJson))
         });
 
@@ -46,7 +48,7 @@ class UserService {
 
     async createUser(user, userId) {
         let users = await this.getAllUser();
-        user.id = userId || users.reduce((acc, value) => acc.id > value.id ? acc.id : value.id) + 1;
+        user.id = userId || users.reduce((acc, value) => (acc.id > value.id ? acc.id : value.id), 0) + 1;
 
         let isUserExist = users.find(value => value.login === user.login);
         if (isUserExist !== undefined) {
