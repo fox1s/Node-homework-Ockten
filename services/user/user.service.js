@@ -16,12 +16,12 @@ class UserService {
         let users = [];
         const usersJson = await fs.readFile(DBPath).then(value => value.toString()).catch(err => console.log(err));
         const usersArrJson = usersJson.split('\n');
-        console.log(usersArrJson)
+
         usersArrJson.forEach(userJson => {
             if (!userJson) {
                 return
             }
-            console.log(userJson, JSON.parse(userJson))
+
             users.push(JSON.parse(userJson))
         });
 
@@ -55,7 +55,7 @@ class UserService {
             return {status: false, describe: 'User already exist'}
         }
         let result;
-        await fs.appendFile(DBPath, `\n${JSON.stringify(user)}`).then(value => result = {
+        await fs.appendFile(DBPath, `\n${JSON.stringify(user)}`).then(() => result = {
             status: true,
             describe: 'OK'
         }).catch(err => {

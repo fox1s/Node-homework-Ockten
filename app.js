@@ -4,7 +4,7 @@ const path = require("path");
 // const fs = require("fs");
 // const fs = require("fs").promises;
 // const {getUser, createUser} = require("./services/user.service");
-const {userRouter} = require("./routes");
+const {userRouter, productRouter} = require("./routes");
 
 const app = express();
 
@@ -58,6 +58,7 @@ app.set('views', path.join(__dirname, 'views')) // вказує на те де �
 // })
 
 app.use('/users', userRouter);
+app.use('/products', productRouter);
 
 app.listen(5000, (err) => {
     if (err) {

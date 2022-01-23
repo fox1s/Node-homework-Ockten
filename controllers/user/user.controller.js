@@ -19,6 +19,7 @@ module.exports = {
 
     updateUser: async (req, res) => {
         let result = await userService.updateUser(req.body);
+        console.log(result)
         result.status === false ? res.json(400, result) : res.json(result);
     },
 
