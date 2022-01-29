@@ -5,9 +5,12 @@ module.exports = {
         const UserModel = db.getModel('User');
         return UserModel.findAll({});
     },
-    getUsersById: (userId) => {
+
+    getUsersById: async (userId) => {
         const UserModel = db.getModel('User');
-        return UserModel.findOne({where:{id: userId}})
+        const user = await UserModel.findOne({where: {id: userId}});
+        return user === null ? 'Not found!' : user;
+
     },
 
     createUser: (user) => {
@@ -15,9 +18,12 @@ module.exports = {
         return UserModel.create(user)
     },
 
-    // updateUser: (user) => {
-    //     const UserModel = db.getModel('User');
-    //     return UserModel.updateUser(user)
-    // }
+    updateUser:  (user) => {
+        const {id, ...payload} = user;
+        const UserModel = db.getModel('User');
+        return UserModel.update({...payload}, {where: {id}});
+
+
+    }
 
 };

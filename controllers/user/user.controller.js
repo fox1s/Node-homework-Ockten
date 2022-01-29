@@ -2,35 +2,45 @@ const {userService} = require("../../services");
 
 module.exports = {
     getAllUsers: async (req, res) => {
-        // res.render('userList', {user: await getUser()});
-        let users = await userService.getUsers();
-        res.json(users);
+        try {
+            const users = await userService.getUsers();
+            res.json(users);
+        } catch (e) {
+            res.json(e)
+        }
     },
     getUserById: async (req, res) => {
-        const {userId} = req.params;
-        let user = await userService.getUserById(userId);
+        try {
+            const {userId} = req.params;
+            const result = await userService.getUsersById(userId);
+            res.json(result)
+        } catch (e) {
+            res.json(e)
+        }
 
-        user === undefined ? res.json(400, 'Not found') : res.json(user);
     },
+
     createUser: async (req, res) => {
         try {
-            let result = await userService.createUser(req.body);
+            const result = await userService.createUser(req.body);
             res.json(result);
         } catch (e) {
             res.json(e);
         }
-        // result.status === false ? res.json(400, result) : res.json(result);
     },
 
     updateUser: async (req, res) => {
-        let result = await userService.updateUser(req.body);
-        console.log(result)
-        result.status === false ? res.json(400, result) : res.json(result);
+        try {
+            const result = await userService.updateUser(req.body);
+            result[0] === 0 ? res.json(404, 'Not found') : res.json(result);
+        } catch (e) {
+            res.json(e);
+        }
     },
 
     deleteUser: async (req, res) => {
         const {userId} = req.params;
         await userService.deleteUser(userId);
-        res.json('видалено');
+        res.json('Deleted');
     },
 }
