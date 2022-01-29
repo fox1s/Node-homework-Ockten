@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "dependencies": {
     "express": "^4.17.1",
-    "express-handlebars": "^6.0.2"
+    "mysql2": "2.3.3",
+    "sequelize": "6.14.1"
   },
   "devDependencies": {
-    "@types/express-handlebars": "^6.0.2"
+    "@types/sequelize": "4.28.11"
   }
 }

@@ -1,5 +1,0 @@
-
-{"id":4,"name":"validator","login":"balodator3","pass":"vdvdsvdsvds","age":50}
-{"id":1,"name":"validator","login":"balodator13","pass":"vdvdsvdsvds","age":50}
-{"id":5,"name":"validator","login":"balodator4","pass":"vdvdsvdsvds","age":50}
-{"id":2,"name":"validator2","login":"balodator2","pass":"222222222","age":50}

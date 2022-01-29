@@ -1,6 +1,10 @@
 const express = require('express');
-const exprsBars = require('express-handlebars');
+// const exprsBars = require('express-handlebars');
 const path = require("path");
+
+const db = require('./dataBase').getInstance();
+db.setModels();
+
 // const fs = require("fs");
 // const fs = require("fs").promises;
 // const {getUser, createUser} = require("./services/user.service");
@@ -11,10 +15,10 @@ const app = express();
 app.use(express.static(path.join(__dirname, 'views'))); //вказуємо статичну папку
 app.use(express.json()); //вчимо ноду читати json
 app.use(express.urlencoded()); // розширяє json + читання url
-app.engine('.hbs', exprsBars.engine({         // встановлює темплейт двіжок + конфіги для роботи з .hbs
-    extname: '.hbs',
-    defaultLayout: false
-}));
+// app.engine('.hbs', exprsBars.engine({         // встановлює темплейт двіжок + конфіги для роботи з .hbs
+//     extname: '.hbs',
+//     defaultLayout: false
+// }));
 
 app.set('view engine', '.hbs');  // двіжок для відмальовки html
 app.set('views', path.join(__dirname, 'views')) // вказує на те де лежать hbs файли
@@ -59,6 +63,14 @@ app.set('views', path.join(__dirname, 'views')) // вказує на те де �
 
 app.use('/users', userRouter);
 app.use('/products', productRouter);
+
+app.post('/mysql', (req, res) => {
+    connection.query(`INSERT INTO users (name, email, password) VALUES ('${req.body.name}', '${req.body.email}', '${req.body.password}')`)
+
+    connection.query('SELECT * FROM users', (err, results) => {
+        res.json(results)
+    })
+})
 
 app.listen(5000, (err) => {
     if (err) {

@@ -7,7 +7,9 @@ const route = ['users'];
 
 userRouter.get('/', userController.getAllUsers);
 userRouter.get('/:userId', userController.getUserById);
-userRouter.post('/', checkIsUserValid, userController.createUser);
+userRouter.post('/',
+    // checkIsUserValid,
+    userController.createUser);
 userRouter.put('/', userController.updateUser);
 userRouter.delete('/:userId', userController.deleteUser);
 
