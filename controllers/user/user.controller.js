@@ -3,8 +3,8 @@ const {userService} = require("../../services");
 module.exports = {
     getAllUsers: async (req, res) => {
         try {
-            const users = await userService.getUsers();
-            res.json(users);
+            const result = await userService.getUsers();
+            res.json(result);
         } catch (e) {
             res.json(e)
         }
@@ -13,26 +13,27 @@ module.exports = {
         try {
             const {userId} = req.params;
             const result = await userService.getUsersById(userId);
-            res.json(result)
-        } catch (e) {
-            res.json(e)
-        }
-
-    },
-
-    createUser: async (req, res) => {
-        try {
-            const result = await userService.createUser(req.body);
             res.json(result);
         } catch (e) {
             res.json(e);
         }
     },
 
-    updateUser: async (req, res) => {
+    createUser: async (req, res) => {
         try {
-            const result = await userService.updateUser(req.body);
-            result[0] === 0 ? res.json(404, 'Not found') : res.json(result);
+            const result = await userService.createUser(req.body);
+            res.json(201, result);
+            // res.sendStatus(201);
+        } catch (e) {
+            res.json(e);
+        }
+    },
+
+    updateUser: async (req, res) => {
+        const {userId} = req.params;
+        try {
+            const [isUpdated] = await userService.updateUser(userId, req.body);
+            isUpdated ? res.sendStatus(200) : res.json({updated: false});
         } catch (e) {
             res.json(e);
         }
@@ -40,7 +41,11 @@ module.exports = {
 
     deleteUser: async (req, res) => {
         const {userId} = req.params;
-        await userService.deleteUser(userId);
-        res.json('Deleted');
+        try {
+            const isDeleted = await userService.deleteUser(userId);
+            isDeleted ? res.sendStatus(204) : res.json({deleted: false})
+        } catch (e) {
+            res.json(e);
+        }
     },
 }

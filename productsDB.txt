@@ -1,6 +1,0 @@
-
-{"name":"Banana","price":"12","count":"256","id":1}
-{"name":"Tomato","price":"5","count":"10","id":2}
-{"name":"Cucumber","price":"50","count":"15","id":3}
-{"id":4,"name":"super Potato","price":"4","count":"526"}
-{"name":"Strawberry","price":8,"count":59,"id":5}

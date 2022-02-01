@@ -1,31 +1,54 @@
 const {productService} = require("../../services");
 
 class ProductController {
-    async getAllProducts(req, res) {
-        let result = await productService.getAllProducts();
-        res.json(result)
+    async getProducts(req, res) {
+        try {
+            const result = await productService.getProducts();
+            res.json(result)
+        } catch (e) {
+            res.json(e);
+        }
     }
 
     async getProductById(req, res) {
-        const {productId} = req.params;
-        let product = await productService.getProductById(productId);
-        product === undefined ? res.json(400, 'Not found') : res.json(product);
+        try {
+            const {productId} = req.params;
+            const result = await productService.getProductById(productId);
+            res.json(result);
+        } catch (e) {
+            res.json(e);
+        }
+
     }
 
     async createProduct(req, res) {
-        let result = await productService.createProduct(req.body);
-        result.status === false ? res.json(400, result) : res.json(result);
+        try {
+            const result = await productService.createProduct(req.body);
+            res.json(201, result);
+        } catch (e) {
+            res.json(e);
+        }
     }
 
+
     async updateProduct(req, res) {
-        let result = await productService.updateProduct(req.body);
-        result.status === false ? res.json(400, result) : res.json(result);
+        try {
+            const {productId} = req.params;
+            const [isUpdated] = await productService.updateProduct(productId, req.body);
+            isUpdated ? res.sendStatus(200) : res.json({updated: false});
+        } catch (e) {
+            res.json(e);
+        }
     }
 
     async deleteProduct(req, res) {
-        const {productId} = req.params;
-        await productService.deleteProduct(productId);
-        res.json('Deleted');
+        try {
+            const {productId} = req.params;
+            const isDeleted = await productService.deleteProduct(productId);
+            isDeleted ? res.sendStatus(204) : res.json({deleted: false});
+        } catch (e) {
+            res.json(e);
+        }
     }
 
 }

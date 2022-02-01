@@ -3,14 +3,14 @@ const db = require('../../dataBase').getInstance();
 module.exports = {
     getUsers: () => {
         const UserModel = db.getModel('User');
-        return UserModel.findAll({});
+        return UserModel.findAll();
     },
 
     getUsersById: async (userId) => {
         const UserModel = db.getModel('User');
-        const user = await UserModel.findOne({where: {id: userId}});
+        // const user = await UserModel.findOne({where: {id: userId}});
+        const user = await UserModel.findByPk(userId);
         return user === null ? 'Not found!' : user;
-
     },
 
     createUser: (user) => {
@@ -18,12 +18,15 @@ module.exports = {
         return UserModel.create(user)
     },
 
-    updateUser:  (user) => {
-        const {id, ...payload} = user;
+    updateUser: (userId, user) => {
         const UserModel = db.getModel('User');
-        return UserModel.update({...payload}, {where: {id}});
+        return UserModel.update({...user}, {where: {id: userId}});
+    },
 
-
+    deleteUser: (userId) => {
+        const UserModel = db.getModel('User');
+        return UserModel.destroy({where: {id: userId}})
     }
+
 
 };
