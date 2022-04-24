@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => sequelize.define('Product', {
         allowNull: false
     },
     price: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.DOUBLE,
         allowNull: false
     },
     count: {
@@ -19,6 +19,6 @@ module.exports = (sequelize, DataTypes) => sequelize.define('Product', {
     },
     description: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true
     },
 }, {tableName: 'products', timestamps: false})

@@ -1,19 +1,15 @@
+const {productValidationSchema} = require("../../validators");
+const ErrorHandler = require("../../error/ErrorHandler");
 module.exports = (req, res, next) => {
     try {
-        const {name, price, count, description} = req.body;
+        const product = req.body;
 
-        if (name.length < 2) {
-            throw new Error('Name is too short');
+        const {error} = productValidationSchema.validate(product);
+        console.log(error)
+        if (error) {
+            return next(new ErrorHandler(error.details[0].message, 400))
         }
-        if (price <= 0) {
-            throw new Error('Price is not valid');
-        }
-        if (count <= 0) {
-            throw new Error('Count is not valid');
-        }
-        if (!name || !price || !count || !description) {
-            throw new Error('Product is not valid');
-        }
+
         next();
     } catch (e) {
         res.json({error: e.message});

@@ -2,11 +2,14 @@
   "name": "Node_lecture_1",
   "version": "1.0.0",
   "dependencies": {
-    "express": "^4.17.1",
+    "bcrypt": "5.0.1",
+    "express": "4.17.1",
+    "joi": "17.6.0",
     "mysql2": "2.3.3",
     "sequelize": "6.14.1"
   },
   "devDependencies": {
-    "@types/sequelize": "4.28.11"
+    "@types/sequelize": "4.28.11",
+    "@types/joi": "17.2.3"
   }
 }

@@ -24,3 +24,11 @@ app.listen(5000, (err) => {
 
 
 
+
+process.on("unhandledRejection", reason => {
+    console.log('_______________________');
+    console.log(reason);
+    console.log('_______________________');
+    //зупиняєм апку і записуєм у лог файл
+    process.exit(0)
+})

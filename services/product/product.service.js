@@ -1,34 +1,36 @@
 const db = require('../../dataBase/index').getInstance();
+const {modelName: {PRODUCT}} = require("../../constants");
+
 
 module.exports = {
     getProducts: () => {
-        const ProductModel = db.getModel('Product');
+        const ProductModel = db.getModel(PRODUCT);
         return ProductModel.findAll();
     },
 
     getProductById: (productId) => {
-        const ProductModel = db.getModel('Product');
+        const ProductModel = db.getModel(PRODUCT);
         return ProductModel.findByPk(productId);
     },
 
     createProduct: (product) => {
-        const ProductModel = db.getModel('Product');
+        const ProductModel = db.getModel(PRODUCT);
         return ProductModel.create(product);
     },
 
     updateProduct: (productId, user) => {
-        const ProductModel = db.getModel('Product');
+        const ProductModel = db.getModel(PRODUCT);
         return ProductModel.update(user, {where: {id: productId}});
     },
 
     deleteProduct: (productId) => {
-        const ProductModel = db.getModel('Product');
+        const ProductModel = db.getModel(PRODUCT);
         return ProductModel.destroy({where: {id: productId}});
     }
 }
 
 // getProducts: () => {
-//     const ProductModel = db.getModel('Product');
+//     const ProductModel = db.getModel(PRODUCT);
 //     return ProductModel.findAll();
 // }
 

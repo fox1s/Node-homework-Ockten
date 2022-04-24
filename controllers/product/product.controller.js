@@ -12,9 +12,11 @@ class ProductController {
 
     async getProductById(req, res) {
         try {
-            const {productId} = req.params;
-            const result = await productService.getProductById(productId);
-            res.json(result);
+            // const {productId} = req.params;
+            // const result = await productService.getProductById(productId);
+            // res.json(result);
+            console.log(req.product)
+            res.json(req.product)
         } catch (e) {
             res.json(e);
         }

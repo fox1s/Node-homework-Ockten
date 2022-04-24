@@ -7,6 +7,7 @@ const route = ['users'];
 
 userRouter.get('/', userController.getAllUsers);
 userRouter.post('/', isUserValid, userController.createUser);
+userRouter.post('/auth', userController.loginUser);
 
 userRouter.use('/:userId', isUserExist);
 
