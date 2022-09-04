@@ -1,2 +1,5 @@
 module.exports.regexpEnum = require('./regexp.enum');
 module.exports.modelName = require('./modelName.enum');
+module.exports.wordsEnum = require('./words');
+module.exports.responseStatusCodesEnum = require('./respone-status-codes.enum');
+module.exports.requestHeadersEnum = require('./requestHeaders.enum');

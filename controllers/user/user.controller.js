@@ -1,6 +1,6 @@
 const {userService} = require("../../services");
 const {hashPassword, checkHashPasswords} = require("./../../helpers");
-const {errorHandler} = require("./../../error");
+const {ErrorHandler} = require("./../../error");
 
 module.exports = {
     getAllUsers: async (req, res, next) => {
@@ -8,7 +8,7 @@ module.exports = {
             const result = await userService.getUsers();
             res.json(result);
         } catch (e) {
-            next(new errorHandler(e.message));
+            next(new ErrorHandler(e.message));
             // res.json(e)
         }
     },
@@ -18,7 +18,7 @@ module.exports = {
             const result = await userService.getUsersById(userId);
             res.json(result);
         } catch (e) {
-            next(new errorHandler(e.message));
+            next(new ErrorHandler(e.message));
         }
     },
 
@@ -29,7 +29,7 @@ module.exports = {
             res.json(201, result);
             // res.sendStatus(201);
         } catch (e) {
-            next(new errorHandler(e.message));
+            next(new ErrorHandler(e.message));
         }
     },
 
@@ -41,15 +41,15 @@ module.exports = {
             // знову ж таки. Де ця перевірка має бути. В мідлварці чи тут?
             const user = await userService.getUserByParams({email});
             if (!user) {
-                return next(new errorHandler('User is not found', 404));
+                return next(new ErrorHandler('User is not found', 404));
             }
             ////////////////////////
             req.body.password = await hashPassword(password);
 
             const [isUpdated] = await userService.updateUser(userId, req.body);
-            isUpdated ? res.sendStatus(200) : next(new errorHandler('Not updated', 444));;
+            isUpdated ? res.sendStatus(200) : next(new ErrorHandler('Not updated', 444));
         } catch (e) {
-            next(new errorHandler(e.message));
+            next(new ErrorHandler(e.message));
         }
     },
 
@@ -57,9 +57,9 @@ module.exports = {
         const {userId} = req.params;
         try {
             const isDeleted = await userService.deleteUser(userId);
-            isDeleted ? res.sendStatus(204) : next(new errorHandler('Not deleted', 444));
+            isDeleted ? res.sendStatus(204) : next(new ErrorHandler('Not deleted', 444));
         } catch (e) {
-            next(new errorHandler(e.message));
+            next(new ErrorHandler(e.message));
         }
     },
 
@@ -70,7 +70,7 @@ module.exports = {
         const user = await userService.getUserByParams({email});
         console.log(user)
         if (!user) {
-            return next(new errorHandler('User is not found', 404, 4041));
+            return next(new ErrorHandler('User is not found', 404, 4041));
         }
 
         await checkHashPasswords(user.password, password);
